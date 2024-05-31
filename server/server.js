@@ -1,6 +1,8 @@
 const express = require("express");
 const userRoutes = require("./routes/userRoutes");
-const bodyParser = require("body-parser"); // Import body-parser
+const authRoutes = require("./routes/authRoutes");
+
+const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
 const app = express();
@@ -10,10 +12,10 @@ const port = 5001;
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// Routes
+// Routes section
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 
-// Start server
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
