@@ -12,7 +12,6 @@ router.post("/addEmployee", (req, res) => {
       .json({ message: "FirstName, lastName, and company are required" });
   }
 
-  // Check if the company ID exists
   const checkCompanySql = "SELECT id FROM company_details WHERE id = ?";
   db.query(checkCompanySql, [company], (err, results) => {
     if (err) {
@@ -22,8 +21,6 @@ router.post("/addEmployee", (req, res) => {
     if (results.length === 0) {
       return res.status(400).json({ message: "Invalid company ID" });
     }
-
-    // Insert the employee if the company exists
     const insertEmployeeSql =
       "INSERT INTO employee_details (firstName, lastName, company, email, phone) VALUES (?, ?, ?, ?, ?)";
     db.query(

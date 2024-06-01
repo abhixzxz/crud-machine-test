@@ -1,3 +1,9 @@
-const PORT = 5001;
+// authConfig.js
 
-module.exports = PORT;
+const PORT = 5001;
+const JWT_SECRET = 124;
+
+module.exports = {
+  PORT,
+  JWT_SECRET,
+};

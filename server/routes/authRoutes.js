@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 const salt = 10;
 
 router.post("/register", (req, res) => {
@@ -57,7 +59,25 @@ router.post("/login", (req, res) => {
           return res.status(400).json({ message: "Invalid credentials" });
         }
 
-        return res.status(200).json({ message: "Login successful" });
+        const accessToken = jwt.sign(
+          { email: req.body.email },
+          "yourAccessTokenSecret",
+          {
+            expiresIn: "1d",
+          }
+        );
+
+        return res
+          .status(200)
+          .cookie("auth-token", accessToken, {
+            maxAge: 24 * 60 * 60 * 1000,
+            httpOnly: true,
+          })
+          .json({
+            message: "Login successful",
+            firstName: user.firstName,
+            lastName: user.lastName,
+          });
       }
     );
   });
