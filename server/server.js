@@ -1,21 +1,25 @@
 const express = require("express");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
-
+const companiesRoute = require("./routes/companiesRoutes.js");
+const employeesRoute = require("./routes/employeeRoutes.js");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const PORT = require("./helpers/index.js");
 
 const app = express();
-const port = 5001;
 
 // Middleware
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use("/storage", express.static(__dirname + "/storage"));
 
 // Routes section
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/companies", companiesRoute);
+app.use("/api/employees", employeesRoute);
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
