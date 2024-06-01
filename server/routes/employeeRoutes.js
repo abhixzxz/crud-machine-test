@@ -56,7 +56,7 @@ router.get("/getAllEmployees", (req, res) => {
   });
 });
 
-// Delete an employee
+// Delete an employeeee
 router.delete("/deleteEmployee/:id", (req, res) => {
   const { id } = req.params;
 
@@ -79,7 +79,7 @@ router.put("/updateEmployee/:id", (req, res) => {
   const { firstName, lastName, company, email, phone } = req.body;
 
   if (company) {
-    // Check if the company ID exists before updating
+    // Check ifd the company ID exists before updating
     const checkCompanySql = "SELECT id FROM company_details WHERE id = ?";
     db.query(checkCompanySql, [company], (err, results) => {
       if (err) {
@@ -97,7 +97,6 @@ router.put("/updateEmployee/:id", (req, res) => {
   }
 
   function updateEmployee() {
-    // Construct the SQL query
     let sql = "UPDATE employee_details SET";
     const params = [];
     if (firstName) {
@@ -120,13 +119,12 @@ router.put("/updateEmployee/:id", (req, res) => {
       sql += " phone = ?,";
       params.push(phone);
     }
-    // Remove the trailing comma
     sql = sql.slice(0, -1);
 
     sql += " WHERE id = ?";
     params.push(employeeId);
 
-    // Execute the SQL query
+    // Execute the SQL queryyy
     db.query(sql, params, (err, result) => {
       if (err) {
         console.error("Error occurred:", err);

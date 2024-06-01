@@ -3,9 +3,8 @@ const router = express.Router();
 const db = require("../config/db.js");
 const multer = require("multer");
 const path = require("path");
-const os = require("os");
+
 const PORT = require("../helpers/index.js");
-// Set up storage engine
 const fs = require("fs");
 
 // Set up storage engine
@@ -24,7 +23,6 @@ const storage = multer.diskStorage({
   },
 });
 
-// Initialize upload
 const upload = multer({
   storage: storage,
   limits: {
